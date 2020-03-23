@@ -293,7 +293,10 @@ public class GroceryHashTable {
 		return hashCode;
 
 	}
-
+	/* This function is used to rehash the hashtable after an insertion has begun. 
+	 * Makes use of the resize function, as well as the copyAllVals and the reinsert
+	 * method. These are all private helper methods.
+	 */
 	public void rehash() throws IllegalNullKeyException, DuplicateKeyException {
 		this.resize();
 	}
