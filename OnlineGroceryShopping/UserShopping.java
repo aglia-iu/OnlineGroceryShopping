@@ -183,7 +183,6 @@ public class UserShopping extends GroceryHashTable {
 	 * 
 	 * @param index          of the item within the groceryItems array
 	 * @param userSelections User Items
-	 * @param count          number of items in the userSelections.
 	 * @return the number of items present in the userSelections after the item with
 	 *         identifier index is added
 	 */
@@ -214,7 +213,6 @@ public class UserShopping extends GroceryHashTable {
 	 * 
 	 * @param itemToRemove   The item to be removed from the userSelections.
 	 * @param userSelections The userSelections from which the item is to be removed
-	 * @param count          the number of items in the userSelections.
 	 * @return the number of items in the userSelections after removing the
 	 *         itemToRemove.
 	 */
@@ -241,7 +239,6 @@ public class UserShopping extends GroceryHashTable {
 	 * helper method getItemPrice.
 	 * 
 	 * @param userSelections the User Items
-	 * @param count          the number of items in the User Items
 	 * @return the total cost
 	 */
 
@@ -260,7 +257,6 @@ public class UserShopping extends GroceryHashTable {
 	 * Displays the userSelectionItems content.
 	 * 
 	 * @param userSelectionItems the User Items
-	 * @param count              the number of items in the User Items
 	 */
 
 	public static void userSelectionItemsPrint(ArrayList<Item> userSelectionItems) {
@@ -330,8 +326,7 @@ public class UserShopping extends GroceryHashTable {
 			userArray = new String[0];
 			userChar = "";
 			userInt = 0;
-
-			// printing out the Menu every time we go through this loop
+			
 			System.out.println("MENU:");
 			System.out.println(" P - print the items available in the grocery");
 			System.out.println(" A - add an item to the selected items");
@@ -346,7 +341,7 @@ public class UserShopping extends GroceryHashTable {
 			userInput = userInput.trim();
 			userChar = userInput.substring(0, 1);
 
-			// All of the possible cases:
+			// The options that are available for the user to enact
 			if (userInput.equalsIgnoreCase("p")) {
 				userArray = userInput.split(" ");
 				try {
