@@ -261,7 +261,7 @@ public class UserShopping extends GroceryHashTable {
 
 	public static void userSelectionItemsPrint(ArrayList<Item> userSelectionItems) {
 		System.out.print("List of User Selections: ");
-		// goes through every element in the userItems and prints it out
+		// goes through every element in the userItems and prints out it's name.
 		for (int i = 0; i < userSelectionItems.size(); i++) {
 			System.out.print(userSelectionItems.get(i).getName() + ", ");
 		}
@@ -269,7 +269,7 @@ public class UserShopping extends GroceryHashTable {
 
 	/**
 	 * prints the grocery items. Uses the GROCERY_ITEMS array to print out the item
-	 * description and price.
+	 * name and price.
 	 * 
 	 * @return void
 	 */
