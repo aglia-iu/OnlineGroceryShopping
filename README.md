@@ -11,7 +11,7 @@ MAIN FILE: UserShopping.java
 AUTHOR: Anjali Gali
  
 BEGAN: 3/16/2020
-ENDED: 3/22/2020		
+ENDED: ONGOING		
 	
 ABOUT: The Online Grocery Shopping is a response to the COVID-19 pandemic, which 
 resulted in a national quarantine response. Because of this quarantine, 
@@ -33,6 +33,8 @@ donation service where users may also opt to donate items using the donate optio
 like to implement this as a delivery service where addresses may be stored in a PostGresSQL 
 Database.
 
+Inspired by the Console Projects I made in CS 300. I also used the skill of creating exception classes
+to throw very specific exceptions.
 
  * Copyright Anjali Gali
 
