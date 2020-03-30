@@ -48,6 +48,6 @@
  */
 
 @SuppressWarnings("serial")
-public class IllegalNullKeyException extends Exception {
+public class NullException extends Exception {
 
 }
