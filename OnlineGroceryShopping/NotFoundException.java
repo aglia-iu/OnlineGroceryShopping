@@ -1,5 +1,5 @@
 
-/*	NAME OF PROJECT: Online Grocery Shopping
+/*	 NAME OF PROJECT: Online Grocery Shopping
  *  INCLUDED FILES: GroceryHashTable.java, Item.java, UserShopping.java, DuplicateKeyException.java, 
  *  				IllegalNullKeyException.java, KeyNotFoundException.java
  *  AUTHOR: Anjali Gali
