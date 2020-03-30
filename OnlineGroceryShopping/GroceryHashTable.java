@@ -56,7 +56,7 @@ public class GroceryHashTable {
 	static final double DEFAULT_LFR = 0.75;
 
 	/** The initial capacity that is used if none is specified user */
-	static final int DEF_CAPACITY = 101;
+	static final int DEF_CAPAC = 101;
 
 	/**
 	 * Private Class for the ItemNode.
@@ -103,7 +103,7 @@ public class GroceryHashTable {
 	 * factor threshold for the newly created hash table.
 	 */
 	public GroceryHashTable() {
-		this(DEF_CAPACITY, DEFAULT_LFR);
+		this(DEF_CAPAC, DEFAULT_LFR);
 	}
 
 	private double loadFactorThreshold; // The load factor threshold of the HashTable.
@@ -140,28 +140,28 @@ public class GroceryHashTable {
 	 * @param key   The unique key to be inserted in the data structure.
 	 * @param value The value to be inserted along with the Key.
 	 */
-	public void insert(String key, Item value) throws IllegalNullKeyException, DuplicateKeyException {
+	public void insert(String key, Item value) throws NullException, DuplicException {
 		// We first resize the hashtable before we add anyti=hing inside it.
 		this.rehash();
 
 		ItemNode item1 = new ItemNode(key, value);
 		// If key is null, throw IllegalNullKeyException.
 		if (key == null) {
-			throw new IllegalNullKeyException();
+			throw new NullException();
 		}
 		try {
 			for (int i = 0; i < table[hashFunction(key)].size(); i++) {
 				if (this.table[hashFunction(key)].get(i).getKey() == (key)) {
 					// If the key already exists in the hashtable, throw a new
 					// DuplicateKeyException().
-					throw new DuplicateKeyException();
+					throw new DuplicException();
 				}
 			}
 			lookup(key);
 			// Try to get the key. If the method throws a KeyNotFoundException, this means
 			// that the key is not in the hash table. So we can safely insert the key
 			// without the fear of duplicates.
-		} catch (KeyNotFoundException k) {
+		} catch (NotFoundException k) {
 			table[hashFunction(key)].add(item1);
 			totalKeys++;
 		}
@@ -176,16 +176,16 @@ public class GroceryHashTable {
 	 * @param key The key of the value to remove.
 	 * @return True if the element is safely removed. False otherwise.
 	 */
-	public boolean remove(String key) throws IllegalNullKeyException {
+	public boolean remove(String key) throws NullException {
 		// If key is null, throw IllegalNullKeyException.
 		if (key == null) {
-			throw new IllegalNullKeyException();
+			throw new NullException();
 		}
 
 		// try to get the key. If the KeynotFoundException is thrown return k.
 		try {
 			lookup(key);
-		} catch (KeyNotFoundException k) {
+		} catch (NotFoundException k) {
 			return false;
 		}
 		// Iterate through the so found arrayList. Upon finding element, remove and
@@ -210,14 +210,14 @@ public class GroceryHashTable {
 	 * 
 	 * @param key The key to get from the hash table.
 	 * @return The i associated with the given key.
-	 * @throws IllegalNullKeyException If key is null.
-	 * @throws KeyNotFoundException()  If key is not found.
+	 * @throws NullException If key is null.
+	 * @throws NotFoundException()  If key is not found.
 	 */
-	public Item lookup(String key) throws IllegalNullKeyException, KeyNotFoundException {
+	public Item lookup(String key) throws NullException, NotFoundException {
 		// If key is null, throw IllegalNullKeyException.
 		int itemToReturn = -2;
 		if (key == null) {
-			throw new IllegalNullKeyException();
+			throw new NullException();
 		} else {
 			for (int i = 0; i < table[hashFunction(key)].size(); i++) {
 				// If this item exists, return the value associated with the specified key.
@@ -229,7 +229,7 @@ public class GroceryHashTable {
 			// arrayList, this means the key has not been found, so we throw a
 			// KeyNotFoundException().
 			if (itemToReturn == -2) {
-				throw new KeyNotFoundException();
+				throw new NotFoundException();
 			}
 		}
 		// Otherwise, we are successfully able to obtain the value, so return it.
@@ -293,11 +293,8 @@ public class GroceryHashTable {
 		return hashCode;
 
 	}
-	/* This function is used to rehash the hashtable after an insertion has begun. 
-	 * Makes use of the resize function, as well as the copyAllVals and the reinsert
-	 * method. These are all private helper methods.
-	 */
-	public void rehash() throws IllegalNullKeyException, DuplicateKeyException {
+
+	public void rehash() throws NullException, DuplicException {
 		this.resize();
 	}
 
@@ -308,10 +305,10 @@ public class GroceryHashTable {
 	 * number of ArrayLists to avoid resizing issues. Then we rehash the elements
 	 * one by one from the temporary to the new array.
 	 * 
-	 * @throws IllegalNullKeyException If the key is null.
-	 * @throws DuplicateKeyException   If the key has a duplicate.
+	 * @throws NullException If the key is null.
+	 * @throws DuplicException   If the key has a duplicate.
 	 */
-	private void resize() throws IllegalNullKeyException, DuplicateKeyException {
+	private void resize() throws NullException, DuplicException {
 		// When the load factor is reached, the capacity must increase to:
 		// 2 * capacity + 1.
 		Double loadFactor = (((double) totalKeys) / ((double) getCapacity()));
@@ -340,8 +337,8 @@ public class GroceryHashTable {
 					try {
 						// Reinsert the value.
 						reinsert(key, value);
-					} catch (DuplicateKeyException d) {
-						throw new DuplicateKeyException();
+					} catch (DuplicException d) {
+						throw new DuplicException();
 					}
 				}
 			}
@@ -384,12 +381,12 @@ public class GroceryHashTable {
 	 * 
 	 * @param key   The key to be inserted
 	 * @param value The value to be inserted
-	 * @throws IllegalNullKeyException
-	 * @throws DuplicateKeyException
+	 * @throws NullException
+	 * @throws DuplicException
 	 */
-	private void reinsert(String key, Item value) throws IllegalNullKeyException, DuplicateKeyException {
+	private void reinsert(String key, Item value) throws NullException, DuplicException {
 		if (key == null) {
-			throw new IllegalNullKeyException();
+			throw new NullException();
 		}
 		ItemNode newItem = new ItemNode(key, value);
 
@@ -398,14 +395,14 @@ public class GroceryHashTable {
 				if (this.table[hashFunction(key)].get(i).getKey().equals(key)) {
 					// If the key is the same as the key passed into the
 					// method, throw a new DuplicateKeyException().
-					throw new DuplicateKeyException();
+					throw new DuplicException();
 				}
 			}
 			lookup(key);
 			// Try to get the key. If the method throws a KeyNotFoundExcpetion, this means
 			// that the key is not in the hash table. So we can safely insert the key
 			// without the fear of duplicates.
-		} catch (KeyNotFoundException k) {
+		} catch (NotFoundException k) {
 			table[hashFunction(key)].add(newItem);
 		}
 
