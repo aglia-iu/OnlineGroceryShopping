@@ -49,5 +49,5 @@
  */
 
 @SuppressWarnings("serial")
-public class DuplicateKeyException extends Exception {
+public class DuplicException extends Exception {
 }
