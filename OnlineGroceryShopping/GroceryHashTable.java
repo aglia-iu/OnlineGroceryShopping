@@ -1,7 +1,7 @@
 
 /*	NAME OF PROJECT: Online Grocery Shopping
- *  INCLUDED FILES: GroceryHashTable.java, Item.java, UserShopping.java, DuplicateKeyException.java, 
- *  				IllegalNullKeyException.java, KeyNotFoundException.java
+ *  INCLUDED FILES: GroceryHashTable.java, Item.java, UserShopping.java, DuplicException.java, 
+ *  				NullException.java, NotFoundException.java
  *  AUTHOR: Anjali Gali
  *  
  *  BEGAN: 3/16/2020
@@ -134,8 +134,8 @@ public class GroceryHashTable {
 
 	/**
 	 * Add the key,value pair to the data structure and increase the number of keys.
-	 * If key is null, throw IllegalNullKeyException; If key is already in data
-	 * structure, throw DuplicateKeyException();
+	 * If key is null, throw NullException; If key is already in data
+	 * structure, throw DuplicException();
 	 * 
 	 * @param key   The unique key to be inserted in the data structure.
 	 * @param value The value to be inserted along with the Key.
@@ -145,7 +145,7 @@ public class GroceryHashTable {
 		this.rehash();
 
 		ItemNode item1 = new ItemNode(key, value);
-		// If key is null, throw IllegalNullKeyException.
+		// If key is null, throw NullException.
 		if (key == null) {
 			throw new NullException();
 		}
@@ -153,12 +153,12 @@ public class GroceryHashTable {
 			for (int i = 0; i < table[hashFunction(key)].size(); i++) {
 				if (this.table[hashFunction(key)].get(i).getKey() == (key)) {
 					// If the key already exists in the hashtable, throw a new
-					// DuplicateKeyException().
+					// DuplicException().
 					throw new DuplicException();
 				}
 			}
 			lookup(key);
-			// Try to get the key. If the method throws a KeyNotFoundException, this means
+			// Try to get the key. If the method throws a NotFoundException, this means
 			// that the key is not in the hash table. So we can safely insert the key
 			// without the fear of duplicates.
 		} catch (NotFoundException k) {
@@ -170,19 +170,19 @@ public class GroceryHashTable {
 
 	/**
 	 * If key is found, remove the key,value pair from the data structure decrease
-	 * number of keys. Return true. If key is null, throw IllegalNullKeyException.
+	 * number of keys. Return true. If key is null, throw NullException.
 	 * If key is not found, return false.
 	 * 
 	 * @param key The key of the value to remove.
 	 * @return True if the element is safely removed. False otherwise.
 	 */
 	public boolean remove(String key) throws NullException {
-		// If key is null, throw IllegalNullKeyException.
+		// If key is null, throw NullException.
 		if (key == null) {
 			throw new NullException();
 		}
 
-		// try to get the key. If the KeynotFoundException is thrown return k.
+		// try to get the key. If the NotFoundException is thrown return k.
 		try {
 			lookup(key);
 		} catch (NotFoundException k) {
@@ -205,16 +205,16 @@ public class GroceryHashTable {
 
 	/**
 	 * Returns the value associated with the specified key. Does not remove key or
-	 * decrease number of keys. If key is null, throw IllegalNullKeyException. If
-	 * key is not found, throw KeyNotFoundException().
+	 * decrease number of keys. If key is null, throw NullException. If
+	 * key is not found, throw NotFoundException().
 	 * 
 	 * @param key The key to get from the hash table.
 	 * @return The i associated with the given key.
-	 * @throws NullException If key is null.
-	 * @throws NotFoundException()  If key is not found.
+	 * @throws NullException       If key is null.
+	 * @throws NotFoundException() If key is not found.
 	 */
 	public Item lookup(String key) throws NullException, NotFoundException {
-		// If key is null, throw IllegalNullKeyException.
+		// If key is null, throw NullException.
 		int itemToReturn = -2;
 		if (key == null) {
 			throw new NullException();
@@ -227,7 +227,7 @@ public class GroceryHashTable {
 			}
 			// If we reach this point in the array, since -2 is not a valid key in the
 			// arrayList, this means the key has not been found, so we throw a
-			// KeyNotFoundException().
+			// NotFoundException().
 			if (itemToReturn == -2) {
 				throw new NotFoundException();
 			}
@@ -305,8 +305,8 @@ public class GroceryHashTable {
 	 * number of ArrayLists to avoid resizing issues. Then we rehash the elements
 	 * one by one from the temporary to the new array.
 	 * 
-	 * @throws NullException If the key is null.
-	 * @throws DuplicException   If the key has a duplicate.
+	 * @throws NullException   If the key is null.
+	 * @throws DuplicException If the key has a duplicate.
 	 */
 	private void resize() throws NullException, DuplicException {
 		// When the load factor is reached, the capacity must increase to:
@@ -394,12 +394,12 @@ public class GroceryHashTable {
 			for (int i = 0; i < table[hashFunction(key)].size(); i++) {
 				if (this.table[hashFunction(key)].get(i).getKey().equals(key)) {
 					// If the key is the same as the key passed into the
-					// method, throw a new DuplicateKeyException().
+					// method, throw a new DuplicException().
 					throw new DuplicException();
 				}
 			}
 			lookup(key);
-			// Try to get the key. If the method throws a KeyNotFoundExcpetion, this means
+			// Try to get the key. If the method throws a NotFoundException, this means
 			// that the key is not in the hash table. So we can safely insert the key
 			// without the fear of duplicates.
 		} catch (NotFoundException k) {
